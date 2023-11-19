@@ -4,7 +4,8 @@ import 'leaflet/dist/leaflet.css';
 
 import { LatLngExpression } from 'leaflet';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
-import { MapForm } from '../../components/molecules';
+import { ActionMenu } from '../../components/molecules/actionMenu';
+import { SideMenu } from '../../components/molecules/sideMenu';
 
 export const MainPage: React.FC<any> = () => {
   const [positions, setPositions] = React.useState<LatLngExpression[]>([
@@ -22,7 +23,8 @@ export const MainPage: React.FC<any> = () => {
 
   return (
     <S.Container>
-      <MapForm callback={(lat, long) => handleSubmit(lat, long)} />
+      <SideMenu />
+      <ActionMenu />
       <MapContainer
         center={positions[0]}
         zoom={13}
