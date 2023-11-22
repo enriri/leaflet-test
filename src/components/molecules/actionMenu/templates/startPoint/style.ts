@@ -6,6 +6,7 @@ export const Container = styled.div`
 `;
 
 export const Title = styled.h2`
+  margin-top: 0px;
   font-weight: normal;
 `;
 

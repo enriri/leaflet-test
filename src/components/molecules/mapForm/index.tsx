@@ -31,7 +31,9 @@ export const MapForm: React.FC<MapFormInterface> = (props) => {
           placeholder='Longitude'
           onChange={(e) => setLong(parseFloat(e.target.value))}
         ></Input>
-        <Button type='submit'>Enviar</Button>
+        <Button theme={'default'} type='submit'>
+          Enviar
+        </Button>
       </Form>
     </S.Container>
   );

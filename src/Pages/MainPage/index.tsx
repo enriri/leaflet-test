@@ -3,9 +3,10 @@ import * as S from './styles';
 import 'leaflet/dist/leaflet.css';
 
 import { LatLngExpression } from 'leaflet';
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
-import { ActionMenu } from '../../components/molecules/actionMenu';
-import { SideMenu } from '../../components/molecules/sideMenu';
+// import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+// import { ActionMenu } from '../../components/molecules/actionMenu';
+// import { SideMenu } from '../../components/molecules/sideMenu';
+import { Menu } from '../../components/organisms';
 
 export const MainPage: React.FC<any> = () => {
   const [positions, setPositions] = React.useState<LatLngExpression[]>([
@@ -23,9 +24,10 @@ export const MainPage: React.FC<any> = () => {
 
   return (
     <S.Container>
-      <SideMenu />
-      <ActionMenu />
-      <MapContainer
+      {/* <ActionMenu />
+      <SideMenu /> */}
+      <Menu />
+      {/* <MapContainer
         center={positions[0]}
         zoom={13}
         scrollWheelZoom={false}
@@ -44,7 +46,7 @@ export const MainPage: React.FC<any> = () => {
             </Marker>
           );
         })}
-      </MapContainer>
+      </MapContainer> */}
     </S.Container>
   );
 };

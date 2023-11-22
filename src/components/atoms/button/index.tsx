@@ -1,9 +1,23 @@
 import React from 'react';
-import { StyledButton } from './style';
+import { ButtonThemes, StyledButton, ButtonSizes, ButtonType } from './style';
 
-export const Button: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement>> = (
-  props
-) => {
-  const { children } = props;
-  return <StyledButton {...props}>{children}</StyledButton>;
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  theme?: ButtonThemes;
+  size?: ButtonSizes;
+  customType?: ButtonType;
+}
+
+export const Button: React.FC<ButtonProps> = (props) => {
+  const { children, theme, size, customType } = props;
+  return (
+    <StyledButton
+      customType={customType || 'default'}
+      size={size || 'default'}
+      theme={theme || 'default'}
+      {...props}
+    >
+      {children}
+    </StyledButton>
+  );
 };
