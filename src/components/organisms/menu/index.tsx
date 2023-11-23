@@ -3,18 +3,29 @@ import * as S from './style';
 import { MenuSectionInterface } from '../../molecules/menuSection';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import { config } from '../../../constants';
 
 export const Menu: React.FC = () => {
+  const { API_URL } = config;
   const menus: MenuSectionInterface[] = [
     {
       items: [{ id: '1', label: 'Ponto e Zoom iniciais', data: {} }],
-      onClickMenu: () => console.log('click'),
+      onClickMenu: () =>
+        fetch(`${API_URL}/get`).then((data) => console.log(data.json())),
     },
     {
-      items: [
-        { id: '1', label: 'item1', data: {} },
-        { id: '1', label: 'item1', data: {} },
-      ],
+      items: [],
+      onClickMenu: () => console.log('click'),
+      deleteOptions: {
+        onDelete: () => console.log('delete'),
+      },
+      createOptions: {
+        onCreate: () => console.log('create'),
+      },
+      title: 'Pontos',
+    },
+    {
+      items: [],
       onClickMenu: () => console.log('click'),
       deleteOptions: {
         onDelete: () => console.log('delete'),
@@ -25,7 +36,7 @@ export const Menu: React.FC = () => {
       title: 'Area',
     },
     {
-      items: [{ id: '1', label: 'item1', data: {} }],
+      items: [],
       onClickMenu: () => console.log('click'),
       deleteOptions: {
         onDelete: () => console.log('delete'),

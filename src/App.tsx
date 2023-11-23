@@ -1,5 +1,5 @@
-import React from "react";
-import { MainRoute } from "./routes";
+import React from 'react';
+import { MainRoute } from './routes';
 
 function App() {
   return <MainRoute />;

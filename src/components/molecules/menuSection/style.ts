@@ -16,6 +16,5 @@ export const ButtonWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: 5px;
   padding: 5px 5px;
 `;
