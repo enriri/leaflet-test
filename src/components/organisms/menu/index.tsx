@@ -4,14 +4,16 @@ import { MenuSectionInterface } from '../../molecules/menuSection';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { config } from '../../../constants';
+import { ActionMenuContext } from '../../../context/actionMenuContext';
 
 export const Menu: React.FC = () => {
-  const { API_URL } = config;
+  const actionMenuContext = React.useContext(ActionMenuContext);
+  const { setTemplate } = actionMenuContext;
+
   const menus: MenuSectionInterface[] = [
     {
       items: [{ id: '1', label: 'Ponto e Zoom iniciais', data: {} }],
-      onClickMenu: () =>
-        fetch(`${API_URL}/get`).then((data) => console.log(data.json())),
+      onClickMenu: () => setTemplate('startPoint'),
     },
     {
       items: [],

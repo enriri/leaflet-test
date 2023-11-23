@@ -3,8 +3,15 @@ import { Button, Input } from '../../../../atoms';
 import * as S from './style';
 import { StartPointProps } from '..';
 import { ActionMenuGlobalInterface } from '..';
+import fetchStartPointCRUD, {
+  FetchStartPointContract,
+} from '../../../../../hooks/fetchStartPoint';
 
 export const StartPoint: React.FC<ActionMenuGlobalInterface> = (props) => {
+  const { GET } = fetchStartPointCRUD;
+
+  const [data, setData] = React.useState<FetchStartPointContract>();
+
   const [lat, setLat] = React.useState<number>();
   const [long, setLong] = React.useState<number>();
   const [zoom, setZoom] = React.useState<number>();

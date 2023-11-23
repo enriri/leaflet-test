@@ -1,3 +1,7 @@
 export const config = {
-  API_URL: 'http://api',
+  API_URL: 'http://localhost:3002',
+  START_POINT_URI: '/startPoint',
+  PERIMETER_URI: '/perimeterPoint',
+  AREA_URI: '/areaPoint',
+  ISOLATED_URI: '/isolatedPoint',
 };
