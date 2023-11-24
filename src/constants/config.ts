@@ -4,4 +4,5 @@ export const config = {
   PERIMETER_URI: '/perimeterPoint',
   AREA_URI: '/areaPoint',
   ISOLATED_URI: '/isolatedPoint',
+  INTREST_POINT_URL: '/intrestPoint',
 };

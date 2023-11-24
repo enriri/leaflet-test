@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Input } from '../../../../atoms';
-import * as S from './style';
+import * as S from '../global/style';
 import { StartPointProps } from '..';
 import { ActionMenuGlobalInterface } from '..';
 import fetchStartPointCRUD, {
@@ -10,7 +10,7 @@ import fetchStartPointCRUD, {
 export const StartPoint: React.FC<ActionMenuGlobalInterface> = (props) => {
   const { GET } = fetchStartPointCRUD;
 
-  const [data, setData] = React.useState<FetchStartPointContract>();
+  const [data, setData] = React.useState<FetchStartPointContract[]>();
 
   const [lat, setLat] = React.useState<number>();
   const [long, setLong] = React.useState<number>();
@@ -22,6 +22,7 @@ export const StartPoint: React.FC<ActionMenuGlobalInterface> = (props) => {
     if (!(lat && long && zoom)) return;
 
     const callToActionProps: StartPointProps = {
+      id: data?.[0]?.id,
       lat: lat,
       long: long,
       zoom: zoom,
@@ -29,6 +30,19 @@ export const StartPoint: React.FC<ActionMenuGlobalInterface> = (props) => {
 
     lat && long && props.callback({ startPointProps: callToActionProps });
   };
+
+  const loadStartPoint = () => {
+    GET().then((data) => {
+      setData(data);
+      setLat(data?.[0]?.coords?.[0]);
+      setLong(data?.[0]?.coords?.[1]);
+      setZoom(data?.[0]?.zoom);
+    });
+  };
+
+  React.useEffect(() => {
+    loadStartPoint();
+  }, []);
 
   return (
     <S.Container>
@@ -40,6 +54,7 @@ export const StartPoint: React.FC<ActionMenuGlobalInterface> = (props) => {
           type='text'
           name='lat'
           placeholder='Digite'
+          value={lat}
           onChange={(e) => setLat(parseFloat(e.target.value))}
         />
         <label>Longitude: </label>
@@ -47,6 +62,7 @@ export const StartPoint: React.FC<ActionMenuGlobalInterface> = (props) => {
           type='text'
           name='long'
           placeholder='Digite'
+          value={long}
           onChange={(e) => setLong(parseFloat(e.target.value))}
         />
         <label>Zoom: </label>
@@ -54,6 +70,7 @@ export const StartPoint: React.FC<ActionMenuGlobalInterface> = (props) => {
           type='text'
           name='long'
           placeholder='Digite'
+          value={zoom}
           onChange={(e) => setZoom(parseFloat(e.target.value))}
         />
         <Button type='submit'>Salvar</Button>

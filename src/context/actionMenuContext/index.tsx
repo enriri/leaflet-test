@@ -5,8 +5,9 @@ import { ActionMenuTemplates } from '../../components/molecules/actionMenu/templ
 type ActionMenuTemplates = keyof typeof ActionMenuTemplates;
 
 interface ActionMenuContextInterface {
+  id?: string;
   template: ActionMenuTemplates;
-  setTemplate: (name: ActionMenuTemplates) => void;
+  setTemplate: (name: ActionMenuTemplates, id?: string) => void;
 }
 
 const DEFAULT_VALUE: ActionMenuContextInterface = {
@@ -20,13 +21,15 @@ export const ActionMenuContext =
 export const ActionMenuContextProvider: React.FC<any> = ({ children }) => {
   const [template, setTemplateName] =
     React.useState<ActionMenuTemplates>('startPoint');
+  const [id, setId] = React.useState<string>();
 
-  const setTemplate = (name: ActionMenuTemplates) => {
+  const setTemplate = (name: ActionMenuTemplates, id?: string) => {
     setTemplateName(name);
+    setId(id);
   };
 
   return (
-    <ActionMenuContext.Provider value={{ template, setTemplate }}>
+    <ActionMenuContext.Provider value={{ id, template, setTemplate }}>
       {children}
     </ActionMenuContext.Provider>
   );

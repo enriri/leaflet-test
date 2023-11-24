@@ -1,5 +1,11 @@
 {
-  "startPoint": [],
+  "startPoint": [
+    {
+      "id": "1",
+      "coords": [1, 2],
+      "zoom": "13"
+    }
+  ],
   "perimeterPoint": [],
   "areaPoint": [],
   "isolatedPoint": []
