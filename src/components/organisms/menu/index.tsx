@@ -1,7 +1,7 @@
 import React from 'react';
 import * as S from './style';
 import { MenuSectionInterface } from '../../molecules/menuSection';
-import { MapContainer, TileLayer } from 'react-leaflet';
+import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { ActionMenuContext } from '../../../context/actionMenuContext';
 import { itemsInterface } from '../../molecules/menuSection';
@@ -13,9 +13,12 @@ import fetchAreaPointCRUD, {
 import fetchPerimeterPointCRUD, {
   FetchPerimeterContract,
 } from '../../../hooks/fetchPerimeter';
+import { MapContext } from '../../../context/mapContext';
 
 export const Menu: React.FC = () => {
   const actionMenuContext = React.useContext(ActionMenuContext);
+  const { startPoint, intrestPoints, toggleActive, loadPoints } =
+    React.useContext(MapContext);
   const { setTemplate } = actionMenuContext;
   const menus_init: MenuSectionInterface[] = [
     {
@@ -53,19 +56,19 @@ export const Menu: React.FC = () => {
     return items;
   };
 
-  // const menus: MenuSectionInterface[] = [
-
-  // ];
-
   const loadMenu = () => {
     setMenus([...menus_init]);
+    loadPoints && loadPoints();
     const localMenu = [...menus_init];
 
     fetchIntrestPoints([{}])
       .then((data) => {
         localMenu.push({
           items: adaptToItemInterfaceType(data),
-          onClickMenu: ({ id }) => setTemplate('intrestPoint', id),
+          onClickMenu: ({ id }) => {
+            setTemplate('intrestPoint', id);
+            id && toggleActive && toggleActive(id, 'intrestPoint');
+          },
           deleteoptions: {
             onDelete: ({ id }) => {
               deleteIntrestPoint({ id }).finally(loadMenu);
@@ -128,7 +131,12 @@ export const Menu: React.FC = () => {
           })}
         </S.MenuSectionWrapper>
         <S.ActionMapWrapper>
-          <S.StyledActionMenu onSubmit={loadMenu} />
+          <S.StyledActionMenu
+            onSubmit={() => {
+              loadMenu();
+              loadPoints && loadPoints();
+            }}
+          />
           <MapContainer
             center={[51.505, -0.09]}
             zoom={13}
@@ -139,6 +147,23 @@ export const Menu: React.FC = () => {
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
             />
+            {startPoint && (
+              <>
+                <Marker position={[startPoint.lat, startPoint.long]}>
+                  <Popup>Ponto inicial</Popup>
+                </Marker>
+              </>
+            )}
+
+            {intrestPoints?.map((point, key) => {
+              return (
+                <div key={key}>
+                  <Marker position={[point.lat, point.long]}>
+                    <Popup>{point.desc}</Popup>
+                  </Marker>
+                </div>
+              );
+            })}
           </MapContainer>
         </S.ActionMapWrapper>
       </S.SideMenuWrapper>

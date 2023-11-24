@@ -77,7 +77,7 @@ export const MenuSection: React.FC<MenuSectionInterface> = (props) => {
                   customtype='delete'
                   onClick={() => deleteoptions.onDelete({ id: id, data: data })}
                 >
-                  D
+                  X
                 </Button>
               )}
             </Button>

@@ -5,12 +5,13 @@ import { ActionMenu } from '../../molecules/actionMenu';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: 100%;
+  max-width: 100%;
+  max-height: 600px;
 `;
 export const SideMenuWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  width: 100%;
 `;
 
 export const MenuSectionWrapper = styled.div`
@@ -22,7 +23,10 @@ export const MenuSectionWrapper = styled.div`
   border-radius: 5px 0px 0px 5px;
 `;
 
-export const ActionMapWrapper = styled.div``;
+export const ActionMapWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+`;
 
 export const StyledMenuSection = styled(MenuSection)`
   margin-top: 20px;
