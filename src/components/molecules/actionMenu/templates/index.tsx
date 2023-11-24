@@ -1,5 +1,6 @@
 import { StartPoint } from './startPoint';
 import { IntrestPoint } from './intrestPoint';
+import { AreaPoint } from './areaPoint';
 
 export interface ActionMenuGlobalInterface {
   id?: string;
@@ -10,6 +11,7 @@ export interface ActionMenuGlobalInterface {
 export type GlobalActionMenuProps = {
   startPointProps?: StartPointProps;
   intrestPointProps?: IntrestPointProps;
+  areaPointProps?: AreaPointProps;
 };
 
 export type StartPointProps = {
@@ -26,7 +28,21 @@ export type IntrestPointProps = {
   desc: string;
 };
 
+export type AreaPointCoordProps = {
+  lat_sup: number;
+  lat_inf: number;
+  long_sup: number;
+  long_inf: number;
+};
+
+export type AreaPointProps = {
+  id?: string;
+  coords: AreaPointCoordProps;
+  desc: string;
+};
+
 export const ActionMenuTemplates = {
   startPoint: StartPoint,
   intrestPoint: IntrestPoint,
+  areaPoint: AreaPoint,
 };
