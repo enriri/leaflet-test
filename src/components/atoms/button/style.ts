@@ -11,6 +11,7 @@ type themesProps = {
     primaryColor: string;
     secondaryColor: string;
     fontColor: string;
+    hoverColor?: string;
   };
 };
 
@@ -36,6 +37,7 @@ const themes: themesProps = {
     primaryColor: '#d6d8db',
     secondaryColor: '#333333',
     fontColor: '#333333',
+    hoverColor: '#c18e47',
   },
 };
 
@@ -53,16 +55,17 @@ const sizes: sizeProps = {
 export const StyledButton = styled.button<{
   theme: ButtonThemes;
   size: ButtonSizes;
-  customType: ButtonType;
+  customtype: ButtonType;
+  isactive?: boolean;
 }>`
-  ${({ customType, theme, size }) => {
-    const isCreateItem = customType === 'createItem';
-    const isDeleteItem = customType === 'delete';
+  ${({ customtype, theme, size, isactive }) => {
+    const isCreateItem = customtype === 'createItem';
+    const isDeleteItem = customtype === 'delete';
     const border = isCreateItem || isDeleteItem ? '0px' : '1px';
 
     return css`
       border: ${border} solid ${themes[theme].secondaryColor};
-      background-color: ${customType === 'createItem'
+      background-color: ${customtype === 'createItem'
         ? themes[theme].secondaryColor
         : themes[theme].primaryColor};
       border-radius: 5px;
@@ -84,8 +87,13 @@ export const StyledButton = styled.button<{
           `}
       &:hover {
         transition: all 0.4s ease;
-        background-color: #c18e47;
+        background-color: ${themes[theme].hoverColor};
       }
+
+      ${isactive &&
+      css`
+        background-color: ${themes[theme].hoverColor};
+      `}
     `;
   }}
 `;

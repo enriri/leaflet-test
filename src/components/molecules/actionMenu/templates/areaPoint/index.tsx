@@ -11,10 +11,10 @@ export const AreaPoint: React.FC<ActionMenuGlobalInterface> = (props) => {
 
   const { GET } = fetchAreaPointCRUD;
 
-  const [latSup, setLatSup] = React.useState<number>();
-  const [longSup, setLongSup] = React.useState<number>();
-  const [latInf, setLatInf] = React.useState<number>();
-  const [longInf, setLongInf] = React.useState<number>();
+  const [latSup, setLatSup] = React.useState<string>();
+  const [longSup, setLongSup] = React.useState<string>();
+  const [latInf, setLatInf] = React.useState<string>();
+  const [longInf, setLongInf] = React.useState<string>();
   const [desc, setDesc] = React.useState<string>();
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -80,7 +80,7 @@ export const AreaPoint: React.FC<ActionMenuGlobalInterface> = (props) => {
           name='lat'
           placeholder='Digite'
           value={latSup}
-          onChange={(e) => setLatSup(parseInt(e.target.value))}
+          onChange={(e) => setLatSup(e.target.value)}
         />
         <label>Latitude Inferior: </label>
         <Input
@@ -88,7 +88,7 @@ export const AreaPoint: React.FC<ActionMenuGlobalInterface> = (props) => {
           name='long'
           placeholder='Digite'
           value={latInf}
-          onChange={(e) => setLatInf(parseInt(e.target.value))}
+          onChange={(e) => setLatInf(e.target.value)}
         />
         <label>Longitude Inferior: </label>
         <Input
@@ -96,7 +96,7 @@ export const AreaPoint: React.FC<ActionMenuGlobalInterface> = (props) => {
           name='long'
           placeholder='Digite'
           value={longInf}
-          onChange={(e) => setLongInf(parseInt(e.target.value))}
+          onChange={(e) => setLongInf(e.target.value)}
         />
         <label>Longitude Superior: </label>
         <Input
@@ -104,7 +104,7 @@ export const AreaPoint: React.FC<ActionMenuGlobalInterface> = (props) => {
           name='long'
           placeholder='Digite'
           value={longSup}
-          onChange={(e) => setLongSup(parseInt(e.target.value))}
+          onChange={(e) => setLongSup(e.target.value)}
         />
         <Button type='submit'>Salvar</Button>
       </S.FormWrapper>

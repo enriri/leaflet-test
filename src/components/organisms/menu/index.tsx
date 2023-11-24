@@ -10,6 +10,9 @@ import { FetchIntrestPointContract } from '../../../hooks/fetchIntrestPoint';
 import fetchAreaPointCRUD, {
   FetchAreaPointContract,
 } from '../../../hooks/fetchAreaPoint';
+import fetchPerimeterPointCRUD, {
+  FetchPerimeterContract,
+} from '../../../hooks/fetchPerimeter';
 
 export const Menu: React.FC = () => {
   const actionMenuContext = React.useContext(ActionMenuContext);
@@ -30,9 +33,16 @@ export const Menu: React.FC = () => {
   //AreaPoints
   const { GET: fetchAreaPoints, DELETE: deleteAreaPoint } = fetchAreaPointCRUD;
 
+  //PerimeterPoints
+  const { GET: fetchPerimeterPoints, DELETE: deletePerimeterPoint } =
+    fetchPerimeterPointCRUD;
+
   // transform into itemsMenu Type
   const adaptToItemInterfaceType = (
-    data: FetchIntrestPointContract[] | FetchAreaPointContract[]
+    data:
+      | FetchIntrestPointContract[]
+      | FetchAreaPointContract[]
+      | FetchPerimeterContract[]
   ) => {
     const items: itemsInterface[] = [];
     if (data.length > 0) {
@@ -44,17 +54,7 @@ export const Menu: React.FC = () => {
   };
 
   // const menus: MenuSectionInterface[] = [
-  //   {
-  //     items: [],
-  //     onClickMenu: () => console.log('click'),
-  //     deleteOptions: {
-  //       onDelete: () => console.log('delete'),
-  //     },
-  //     createOptions: {
-  //       onCreate: () => console.log('create'),
-  //     },
-  //     title: 'Perimetro',
-  //   },
+
   // ];
 
   const loadMenu = () => {
@@ -66,12 +66,12 @@ export const Menu: React.FC = () => {
         localMenu.push({
           items: adaptToItemInterfaceType(data),
           onClickMenu: ({ id }) => setTemplate('intrestPoint', id),
-          deleteOptions: {
+          deleteoptions: {
             onDelete: ({ id }) => {
               deleteIntrestPoint({ id }).finally(loadMenu);
             },
           },
-          createOptions: {
+          createoptions: {
             onCreate: () => setTemplate('intrestPoint'),
           },
           title: 'Pontos',
@@ -83,17 +83,34 @@ export const Menu: React.FC = () => {
             localMenu.push({
               items: adaptToItemInterfaceType(data),
               onClickMenu: ({ id }) => setTemplate('areaPoint', id),
-              deleteOptions: {
+              deleteoptions: {
                 onDelete: ({ id }) => deleteAreaPoint({ id }).finally(loadMenu),
               },
-              createOptions: {
+              createoptions: {
                 onCreate: () => setTemplate('areaPoint'),
               },
               title: 'Area',
             });
           })
           .finally(() => {
-            setMenus(localMenu);
+            fetchPerimeterPoints([{}])
+              .then((data) => {
+                localMenu.push({
+                  items: adaptToItemInterfaceType(data),
+                  onClickMenu: ({ id }) => setTemplate('perimeterPoint', id),
+                  deleteoptions: {
+                    onDelete: ({ id }) =>
+                      deletePerimeterPoint({ id }).finally(loadMenu),
+                  },
+                  createoptions: {
+                    onCreate: () => setTemplate('perimeterPoint'),
+                  },
+                  title: 'Perimetro',
+                });
+              })
+              .finally(() => {
+                setMenus(localMenu);
+              });
           });
       });
   };

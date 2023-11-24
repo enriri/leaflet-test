@@ -4,6 +4,7 @@ import { ActionMenuContext } from '../../../context/actionMenuContext';
 import { ActionMenuGlobalInterface, ActionMenuTemplates } from './templates';
 import { fetchIntrestPointCRUD, fetchStartPointCRUD } from '../../../hooks';
 import fetchAreaPointCRUD from '../../../hooks/fetchAreaPoint';
+import fetchPerimeterPointCRUD from '../../../hooks/fetchPerimeter';
 
 export interface ActionMenuInterface
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -21,7 +22,12 @@ export const ActionMenu: React.FC<ActionMenuInterface> = (props) => {
     <S.Container {...props}>
       <Menu
         id={id}
-        callback={({ startPointProps, intrestPointProps, areaPointProps }) => {
+        callback={({
+          startPointProps,
+          intrestPointProps,
+          areaPointProps,
+          perimeterPointProps,
+        }) => {
           if (startPointProps) {
             const { POST, PATCH } = fetchStartPointCRUD;
 
@@ -44,6 +50,12 @@ export const ActionMenu: React.FC<ActionMenuInterface> = (props) => {
             const { POST, PATCH } = fetchAreaPointCRUD;
 
             (id && PATCH({ ...areaPointProps })) || POST({ ...areaPointProps });
+          }
+          if (perimeterPointProps) {
+            const { POST, PATCH } = fetchPerimeterPointCRUD;
+
+            (id && PATCH({ ...perimeterPointProps })) ||
+              POST({ ...perimeterPointProps });
           }
         }}
       />

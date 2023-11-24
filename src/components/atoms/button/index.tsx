@@ -5,14 +5,15 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   theme?: ButtonThemes;
   size?: ButtonSizes;
-  customType?: ButtonType;
+  customtype?: ButtonType;
+  isactive?: boolean;
 }
 
 export const Button: React.FC<ButtonProps> = (props) => {
-  const { children, theme, size, customType } = props;
+  const { children, theme, size, customtype } = props;
   return (
     <StyledButton
-      customType={customType || 'default'}
+      customtype={customtype || 'default'}
       size={size || 'default'}
       theme={theme || 'default'}
       {...props}

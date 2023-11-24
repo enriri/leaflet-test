@@ -10,9 +10,10 @@ export type onActionProps = {
 export interface MenuSectionInterface
   extends Partial<React.HTMLAttributes<HTMLDivElement>> {
   title?: string;
+  active?: boolean;
   items: itemsInterface[];
-  createOptions?: createOptions;
-  deleteOptions?: deleteOptions;
+  createoptions?: createOptions;
+  deleteoptions?: deleteOptions;
   onClickMenu: ({ ...props }: onActionProps) => void;
 }
 
@@ -34,9 +35,9 @@ export const MenuSection: React.FC<MenuSectionInterface> = (props) => {
   const {
     title,
     items: itemsFromOptions,
-    deleteOptions,
+    deleteoptions,
     onClickMenu,
-    createOptions,
+    createoptions,
   } = props;
   const [items] = React.useState<itemsInterface[]>(itemsFromOptions);
   return (
@@ -44,11 +45,11 @@ export const MenuSection: React.FC<MenuSectionInterface> = (props) => {
       {title && (
         <S.Title>
           {title}{' '}
-          {createOptions && (
+          {createoptions && (
             <Button
               theme='dark'
-              customType='createItem'
-              onClick={createOptions.onCreate}
+              customtype='createItem'
+              onClick={createoptions.onCreate}
             >
               <strong>+</strong>
             </Button>
@@ -58,18 +59,23 @@ export const MenuSection: React.FC<MenuSectionInterface> = (props) => {
       <S.ButtonWrapper>
         {items.map((item, key) => {
           const { id, label, data } = item;
+          const [active, setActive] = React.useState<boolean>(false);
           return (
             <Button
               theme='dark'
-              onClick={() => onClickMenu({ id: id, data: data })}
+              onClick={() => {
+                onClickMenu({ id: id, data: data });
+                setActive(!active);
+              }}
               key={key}
+              isactive={active}
             >
               {label}{' '}
-              {deleteOptions && (
+              {deleteoptions && (
                 <Button
                   theme='dark'
-                  customType='delete'
-                  onClick={() => deleteOptions.onDelete({ id: id, data: data })}
+                  customtype='delete'
+                  onClick={() => deleteoptions.onDelete({ id: id, data: data })}
                 >
                   D
                 </Button>
